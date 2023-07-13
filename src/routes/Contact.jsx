@@ -1,12 +1,14 @@
+/* eslint-disable react/prop-types */
 import { Form } from "react-router-dom";
 
 const Contact = () => {
   const contact = {
-    first: "Your",
-    last: "Name",
-    avatar: "https://placekitten.com/g/200/200",
-    twitter: "your_handle",
-    notes: "Some notes",
+    first: "Levi",
+    last: "Okoye",
+    avatar:
+      "https://i.pinimg.com/736x/15/2c/86/152c86196f4b6e5e4a6b501fa542f2a5.jpg",
+    twitter: "leviackerman",
+    notes: "No Casualties, Don't You Dare Die",
     favorite: true,
   };
 
@@ -27,28 +29,56 @@ const Contact = () => {
           )}
           <Favorite contact={contact} />
         </h1>
-      </div>
 
+        {contact.twitter && (
+          <p>
+            <a
+              href={`https://twitter.com/${contact.twitter}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {contact.twitter}
+            </a>
+          </p>
+        )}
+
+        {contact.notes && <p>{contact.notes}</p>}
+
+        <div>
+          <Form action="edit">
+            <button type="submit">Edit</button>
+          </Form>
+          <Form
+            method="post"
+            action="destroy"
+            onSubmit={(e) => {
+              if (!confirm("Please confirm you want to delete this record.")) {
+                e.preventDefault();
+              }
+            }}
+          >
+            <button type="submit">Delete</button>
+          </Form>
+        </div>
+      </div>
     </div>
   );
 };
 
-const Favorite = ({contact}) => {
-  let favorite = contact.favorite
+const Favorite = ({ contact }) => {
+  let favorite = contact.favorite;
 
   return (
     <Form method="post">
       <button
         name="favorite"
         value={favorite ? "false" : "true"}
-        aria-label={
-          favorite ? "Remove from favorites" : "Add to favorites"
-        }
+        aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
       >
         {favorite ? "★" : "☆"}
       </button>
     </Form>
-  )
-}
+  );
+};
 
 export default Contact;
