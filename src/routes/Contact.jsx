@@ -1,16 +1,25 @@
 /* eslint-disable react/prop-types */
-import { Form } from "react-router-dom";
+
+import { Form, useLoaderData } from "react-router-dom";
+import { getContact } from "../utils/contacts";
+
+export async function loader({ params }) {
+  const contact = await getContact(params.contactId);
+  return { contact };
+}
 
 const Contact = () => {
-  const contact = {
-    first: "Levi",
-    last: "Okoye",
-    avatar:
-      "https://i.pinimg.com/736x/15/2c/86/152c86196f4b6e5e4a6b501fa542f2a5.jpg",
-    twitter: "leviackerman",
-    notes: "No Casualties, Don't You Dare Die",
-    favorite: true,
-  };
+  const { contact } = useLoaderData()
+
+  // const contact = {
+  //   first: "Levi",
+  //   last: "Okoye",
+  //   avatar:
+  //     "https://i.pinimg.com/736x/15/2c/86/152c86196f4b6e5e4a6b501fa542f2a5.jpg",
+  //   twitter: "leviackerman",
+  //   notes: "No Casualties, Don't You Dare Die",
+  //   favorite: true,
+  // };
 
   return (
     <div id="contact">
