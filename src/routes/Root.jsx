@@ -1,12 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 
-import { Link, Outlet, useLoaderData, Form } from "react-router-dom";
+import { Link, Outlet, useLoaderData, Form, redirect } from "react-router-dom";
 import { getContacts, createContact } from "../utils/contacts";
 
 // create contact logic
 export async function action() {
   const contact = await createContact();
-  return { contact };
+  return redirect(`/contacts/${contact.id}/edit`);
 }
 
 // root loader logic
