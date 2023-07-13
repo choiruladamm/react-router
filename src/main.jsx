@@ -7,7 +7,7 @@ import Root, {
   loader as rootLoader,
   action as rootAction,
 } from "./routes/Root";
-import ErrorPage from "./ErrorPage";
+import ErrorPage from "./components/ErrorPage";
 import Contact, { loader as contactLoader } from "./routes/Contact";
 import EditContact, { action as editAction } from "./routes/EditContact";
 

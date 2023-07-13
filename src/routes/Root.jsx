@@ -1,7 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 
-import { Link, Outlet, useLoaderData, Form, redirect } from "react-router-dom";
+import { Outlet, useLoaderData, Form, redirect } from "react-router-dom";
 import { getContacts, createContact } from "../utils/contacts";
+import ContactItem from "../components/ContactItem";
 
 // create contact logic
 export async function action() {
@@ -43,30 +44,19 @@ const Root = () => {
         </div>
 
         {/* nav link */}
-        {contacts.length ? (
-          <nav>
+        <nav>
+          {contacts.length ? (
             <ul>
               {contacts.map((contact) => (
-                <li key={contact.id}>
-                  <Link to={`contacts/${contact.id}`}>
-                    {contact.first || contact.last ? (
-                      <>
-                        {contact.first} {contact.last}
-                      </>
-                    ) : (
-                      <i>No Name</i>
-                    )}{" "}
-                    {contact.favorite && <span>★</span>}
-                  </Link>
-                </li>
+                <ContactItem key={contact.id} contact={contact} />
               ))}
             </ul>
-          </nav>
-        ) : (
-          <p>
-            <i>no contacts</i>
-          </p>
-        )}
+          ) : (
+            <p>
+              <i>no contacts</i>
+            </p>
+          )}
+        </nav>
       </div>
 
       <div id="detail">
