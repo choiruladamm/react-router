@@ -1,13 +1,21 @@
 /* eslint-disable react-refresh/only-export-components */
 
-import { Link, Outlet, useLoaderData } from "react-router-dom";
-import { getContacts } from "../utils/contacts";
+import { Link, Outlet, useLoaderData, Form } from "react-router-dom";
+import { getContacts, createContact } from "../utils/contacts";
 
+// create contact logic
+export async function action() {
+  const contact = await createContact();
+  return { contact };
+}
+
+// root loader logic
 export async function loader() {
   const contacts = await getContacts();
   return { contacts };
 }
 
+// root componnent
 const Root = () => {
   const { contacts } = useLoaderData();
 
@@ -29,9 +37,9 @@ const Root = () => {
             <div id="search-spinner" aria-hidden hidden={true} />
             <div className="sr-only" aria-live="polite"></div>
           </form>
-          <form method="post">
+          <Form method="post">
             <button type="submit">New</button>
-          </form>
+          </Form>
         </div>
 
         {/* nav link */}
