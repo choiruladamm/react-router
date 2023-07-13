@@ -32,6 +32,10 @@ const Root = () => {
   const navigation = useNavigation();
   const submit = useSubmit();
 
+  const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has("q");
+
   useEffect(() => {
     document.getElementById("q").value = q;
   }, [q]);
@@ -52,8 +56,9 @@ const Root = () => {
               name="q"
               defaultValue={q}
               onChange={(e) => submit(e.currentTarget.form)}
+              className={searching ? "loading" : ""}
             />
-            <div id="search-spinner" aria-hidden hidden={true} />
+            <div id="search-spinner" aria-hidden hidden={!searching} />
             <div className="sr-only" aria-live="polite"></div>
           </Form>
           <Form method="post">
