@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { getContacts, createContact } from "../utils/contacts";
 import ContactItem from "../components/ContactItem";
+import { useEffect } from "react";
 
 // create contact logic
 export async function action() {
@@ -21,13 +22,17 @@ export async function loader({ request }) {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
   const contacts = await getContacts(q);
-  return { contacts };
+  return { contacts, q };
 }
 
 // root componnent
 const Root = () => {
-  const { contacts } = useLoaderData();
+  const { contacts, q } = useLoaderData();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    document.getElementById("q").value = q;
+  }, [q]);
 
   return (
     <>
@@ -43,6 +48,7 @@ const Root = () => {
               placeholder="Search"
               type="search"
               name="q"
+              defaultValue={q}
             />
             <div id="search-spinner" aria-hidden hidden={true} />
             <div className="sr-only" aria-live="polite"></div>
